@@ -1,38 +1,22 @@
 var express = require("express");
-const amqp = require("amqplib");
+const { sendData } = require("./src/services/rabbitMQ/publisher");
+const { consumer } = require("./src/services/rabbitMQ/consumer");
 var app = express();
+require('./src/routes')(app)
 
 const queue = "test_queue";
 const text = {
-    item_id: "macbook",
-    text: "This is a sample message to send receiver to check the ordered Item Availablility",
-  };
-
-async function sendData() {
-    let connection;
-    try {
-      connection = await amqp.connect("amqp://user:user123@79.143.90.196:5672");
-      const channel = await connection.createChannel();
-  
-      await channel.assertQueue(queue, { durable: false });
-      channel.sendToQueue(queue, Buffer.from(JSON.stringify(text)));
-      console.log(" [x] Sent '%s'", text);
-      await channel.close();
-    } catch (err) {
-      console.warn(err);
-    } finally {
-      if (connection) await connection.close();
-    }
-}
+  item_id: "macbook",
+  text: "This Hello",
+};
 
 app.get("/send-msg", async (req, res) => {
-    sendData();
+    sendData(queue, text);
     res.send("Message Sent"); //response to the API request
-    
 })
 
-app.get("/", function (req, res) {
-    res.send("Hello world!");   
-});
+consumer(queue);
 
-app.listen(3000);
+app.listen(3000,() => {
+  console.log("server is running..");
+});
