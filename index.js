@@ -2,8 +2,11 @@ var express = require("express");
 const { sendData } = require("./src/services/rabbitMQ/publisher");
 const { consumer } = require("./src/services/rabbitMQ/consumer");
 var app = express();
+require("dotenv").config();
+require('./config/config')(app)
 require('./config/dbConfig')()
 require('./config/consumer')()
+require('./config/mqtt')(app)
 require('./src/routes')(app)
 
 const queue = "test_queue";

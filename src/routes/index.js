@@ -1,3 +1,4 @@
+const userRoutes = require('./user')
 module.exports = (app) => {
   app.get("/", (req, res) => {
     res.json({
@@ -6,4 +7,6 @@ module.exports = (app) => {
       api_version: "V1.0.0",
     });
   });
+
+  app.use("/api/v1/users", userRoutes)
 };
