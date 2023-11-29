@@ -3,7 +3,7 @@ module.exports = function () {
 	// Configuring the database
 	mongoose.Promise = global.Promise;
 
-	let URL = "mongodb://pdbuser:hello%40123@79.143.90.196:27017/probulon";
+	let URL = process.env.Mongo_URL;
 
 	// Connecting to the database
 	mongoose

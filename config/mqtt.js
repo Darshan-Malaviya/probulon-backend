@@ -3,18 +3,17 @@ const { queueLogs } = require('../src/models/queue');
 const makeMongoDbServiceQueue = require("../src/services/db/dbService")({
   model: queueLogs,
 });
-const brokerUrl = 'mqtt://79.143.90.196:1883';
-
+const brokerUrl = process.env.MQTT_URL;
 const publisherOptions = {
     clientId: 'client1',
-    username: 'user',
-    password: 'user123',
+    username: process.env.MQTT_USER,
+    password: process.env.MQTT_PWD
 };
 
 const subscriberOptions = {
     clientId: 'client2',
-    username: 'user',
-    password: 'user123',
+    username: process.env.MQTT_USER,
+    password: process.env.MQTT_PWD
 };
 
 const publisherClient = mqtt.connect(brokerUrl, publisherOptions);

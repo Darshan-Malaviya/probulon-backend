@@ -1,10 +1,10 @@
-const { sendResponse, messages } = require("../../helpers/handleResponse")
+const { sendResponse, messages } = require("../../../helpers/handleResponse")
 const Joi = require('joi')
-const { User } = require("../../models/user.model");
-const makeMongoDbServiceUser = require("../../services/db/dbService")({
+const { User } = require("../../../models/user.model");
+const makeMongoDbServiceUser = require("../../../services/db/dbService")({
 	model: User,
 });
-exports.getAll = async (req, res) => {
+exports.handler = async (req, res) => {
     let meta = {};
     let userList = [];
     const pageNumber = parseInt(req.query.pageNumber);

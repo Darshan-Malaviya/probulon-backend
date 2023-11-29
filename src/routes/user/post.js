@@ -1,11 +1,12 @@
 const Joi = require("joi");
+const bcrypt = require('bcrypt');
 const { sendResponse, messages} = require("../../helpers/handleResponse");
 const { User } = require("../../models/user.model");
 const makeMongoDbServiceUser = require("../../services/db/dbService")({
 	model: User,
 });
 
-exports.create = async (req, res) => {
+exports.handler = async (req, res) => {
 	try {
 		let email = req.body.email
 		let clientId = req.body.clientId
@@ -25,11 +26,19 @@ exports.create = async (req, res) => {
 			2: "Female",
 			3: "Other"
 		}
+		const userTypeArr = {
+			1: "Client",
+			2: "User",
+			3: "Admin"
+		}
 		const userData = req.body;
+		console.log(process.env.SALT_ROUND)
+		userData.password = bcrypt.hashSync(userData.password, parseInt(process.env.SALT_ROUND))
 		userData.status = 1 // 1- active, 2- deleted
 		userData.statusText = "Active"
 		userData.genderType = userData.gender
 		userData.gender = genderArr[userData.genderType]
+		userData.userTypeText = userTypeArr[req.body.userType] 
 		const newUser = await makeMongoDbServiceUser.createDocument(userData);
 		const { password, __v, ...newUserData} = newUser._doc
 		return sendResponse(res, null, 200, messages.successResponse(newUserData))
