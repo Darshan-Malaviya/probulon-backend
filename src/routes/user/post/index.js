@@ -1,8 +1,8 @@
 const Joi = require("joi");
 const bcrypt = require('bcrypt');
-const { sendResponse, messages} = require("../../helpers/handleResponse");
-const { User } = require("../../models/user.model");
-const makeMongoDbServiceUser = require("../../services/db/dbService")({
+const { sendResponse, messages} = require("../../../helpers/handleResponse");
+const { User } = require("../../../models/user.model");
+const makeMongoDbServiceUser = require("../../../services/db/dbService")({
 	model: User,
 });
 

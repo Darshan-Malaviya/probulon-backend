@@ -1,8 +1,8 @@
-const { sendResponse, messages } = require("../../helpers/handleResponse")
+const { sendResponse, messages } = require("../../../helpers/handleResponse")
 const Joi = require('joi')
 const { ObjectId } = require('mongodb');
-const { User } = require("../../models/user.model");
-const makeMongoDbServiceUser = require("../../services/db/dbService")({
+const { User } = require("../../../models/user.model");
+const makeMongoDbServiceUser = require("../../../services/db/dbService")({
 	model: User,
 });
 
