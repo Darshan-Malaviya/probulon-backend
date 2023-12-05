@@ -2,25 +2,68 @@
 const mongoose = require("mongoose");
 
 const userSchema = mongoose.Schema({
-	firstName: {
+	clientId: {
+		type: String,
+		default: ""
+	},
+	collaborator: Number,
+	collaboratorText: String,
+	position: Number,
+	positionText: String,
+	name: {
 		type: String,
 		required: true,
 	},
-	lastName: {
+	surname: {
 		type: String,
 		required: true,
+	},
+	lastSurname: {
+		type: String,
+		required: true,
+	},
+	mobile: {
+		type: String
+	},
+	secondaryMobile: {
+		type: String
 	},
 	email: {
 		type: String,
 		required: true,
 		unique: true
 	},
-	deviceId: {
+	secondaryEmail: {
 		type: String,
-		required: true
+		default: ""
 	},
-	clientId: {
+	status: {
+		type: Number,
+		minlength: 1,
+		maxlength: 1,
+	},
+	statusText: {
 		type: String
+	},
+	taxStatus: {
+		type: Number,
+		default: 0
+	},
+	taxStatusText: {
+		type: String,
+		default: ''
+	},
+	documentType: {
+		type: Number
+	},
+	documentTypeText: {
+		type: String
+	},
+	idNumber: {
+		type: String
+	},
+	devices: {
+		type: Array
 	},
 	password: {
 		type: String,
@@ -36,18 +79,32 @@ const userSchema = mongoose.Schema({
 		type: Boolean,
         default: false
 	},
-	status: {
-		type: Number,
-		minlength: 1,
-		maxlength: 1,
-	},
-	statusText: {
-		type: String
-	},
-	userType: {
+	userType: { //1 - client, 2 - user, 3 - admin
 		type: Number,
 		min: 1,
 		max: 1
+	},
+	userTypeText: { //1 - client, 2 - user, 3 - admin
+		type: String
+	},
+	postalCode: Number,
+	country: {
+		type: String
+	},
+	town: {
+		type: String
+	},
+	startDate: {
+		type: Date
+	},
+	terminationDate: {
+		type: Date
+	},
+	taxAddress: {
+		type: String
+	},
+	notes: {
+		type: String
 	}
 }, { timestamps: true });
 

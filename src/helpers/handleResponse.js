@@ -6,7 +6,7 @@ const sendResponse = (response, headers = null, status, data) => {
 };
 
 let messages = {}
-messages.successResponse = (data, meta = {}) => ({
+messages.successResponse = (data = [], meta = {}) => ({
     isSuccess: true,
     status: 'SUCCESS',
     message: 'Your request is successfully executed',
@@ -112,7 +112,7 @@ messages.invalidRequest = (data) => ({
     data: {}
 });
 
-messages.invalidRequestWithData = (message, data) => ({
+messages.invalidRequestWithData = (message, data = {}) => ({
     isSuccess: false,
     status: 'FAILURE',
     message: message,

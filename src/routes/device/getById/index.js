@@ -1,10 +1,11 @@
-const { sendResponse, messages } = require("../../helpers/handleResponse");
+const { sendResponse, messages } = require("../../../helpers/handleResponse");
 const Joi = require("joi");
 const { ObjectId } = require("mongodb");
-const { User } = require("../../models/user.model");
-const makeMongoDbServiceUser = require("../../services/db/dbService")({
-  model: User,
+const { Device } = require("../../../models/device.model");
+const makeMongoDbServiceDevice = require("../../../services/db/dbService")({
+	model: Device,
 });
+
 
 exports.handler = async (req, res) => {
     try {
