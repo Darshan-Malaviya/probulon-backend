@@ -6,8 +6,7 @@ const userSchema = mongoose.Schema({
 		type: String,
 		default: ""
 	},
-	collaborator: Number,
-	collaboratorText: String,
+	collaborator: String,
 	position: Number,
 	positionText: String,
 	name: {
@@ -87,7 +86,7 @@ const userSchema = mongoose.Schema({
 	userTypeText: { //1 - client, 2 - user, 3 - admin
 		type: String
 	},
-	postalCode: Number,
+	postalCode: String,
 	country: {
 		type: String
 	},
@@ -104,6 +103,12 @@ const userSchema = mongoose.Schema({
 		type: String
 	},
 	notes: {
+		type: String
+	},
+	scheduleTime: {
+		type: String
+	},
+	timezone: {
 		type: String
 	}
 }, { timestamps: true });

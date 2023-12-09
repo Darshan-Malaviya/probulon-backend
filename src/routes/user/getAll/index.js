@@ -11,12 +11,28 @@ exports.handler = async (req, res) => {
     const pageNumber = parseInt(req.query.pageNumber);
     const pageSize = parseInt(req.query.pageSize);
     const skip = pageNumber === 1 ? 0 : parseInt((pageNumber - 1) * pageSize);
+    const matchQuery = {
+      status: parseInt(req.query.status)
+    };
 
+
+    if (req.query.search !== '' && typeof req.query.search !== "undefined") {
+      matchQuery.$or = [
+        { name: { $regex: '.*' + req.query.search + '.*', $options: 'i' } },
+        { surname: { $regex: '.*' + req.query.search + '.*', $options: 'i' } },
+        { lastSurname: { $regex: '.*' + req.query.search + '.*', $options: 'i' } },
+        { mobile: { $regex: '.*' + req.query.search + '.*', $options: 'i' } },
+        { secondaryMobile: { $regex: '.*' + req.query.search + '.*', $options: 'i' } },
+        { email: { $regex: '.*' + req.query.search + '.*', $options: 'i' } },
+        { secondaryEmail: { $regex: '.*' + req.query.search + '.*', $options: 'i' } },
+        { gender: { $regex: '.*' + req.query.search + '.*', $options: 'i' } },
+        { country: { $regex: '.*' + req.query.search + '.*', $options: 'i' } },
+        { town: { $regex: '.*' + req.query.search + '.*', $options: 'i' } },
+      ];
+    }
     userList = await makeMongoDbServiceUser.getDocumentByCustomAggregation([
         {
-            $match: {
-                status: parseInt(req.query.status)
-            }
+            $match: matchQuery
         },{
             $project: {
                 password: 0,
@@ -49,4 +65,5 @@ exports.rule = Joi.object({
     status: Joi.number().valid(1,2).optional().default(1).description('1 - active, 2- deleted'),
     pageNumber: Joi.number().optional().default(1).description('PageNumber'),
     pageSize: Joi.number().optional().default(20).description('PageNumber'),
+    search: Joi.string().optional().allow('').description('search').example('john')
 })

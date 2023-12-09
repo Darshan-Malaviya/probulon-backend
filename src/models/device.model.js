@@ -7,7 +7,7 @@ const deviceSchema = mongoose.Schema({
     deviceId: {
         type: String
     },
-    status: {
+    status: { //On, Off, Disabled
         type: String
     },
     users: {
@@ -37,7 +37,7 @@ const deviceSchema = mongoose.Schema({
     email: {
         type: String
     },
-    secondaryMobile: {
+    secondaryEmail: {
         type: String
     },
     thirdEmail: {
@@ -47,12 +47,12 @@ const deviceSchema = mongoose.Schema({
         type: String
     },
     timestamps: {
-        type: Date
+        type: Number
     },
     localTime: {
         type: String
     },
-	postalCode: Number,
+	postalCode: String,
     country: {
 		type: String
 	},
@@ -64,10 +64,7 @@ const deviceSchema = mongoose.Schema({
 	},
 	notes: {
 		type: String
-	},
-    timestamp: {
-        type: Date
-    }
+	}
 
 }, { timestamps: true });
 
