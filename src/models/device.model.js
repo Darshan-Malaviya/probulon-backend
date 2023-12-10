@@ -8,6 +8,9 @@ const deviceSchema = mongoose.Schema({
         type: String
     },
     status: { //On, Off, Disabled
+        type: Number
+    },
+    statusText: { //On, Off, Disabled
         type: String
     },
     users: {

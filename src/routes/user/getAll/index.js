@@ -70,5 +70,5 @@ exports.rule = Joi.object({
     pageNumber: Joi.number().optional().default(1).description('PageNumber'),
     pageSize: Joi.number().optional().default(20).description('PageNumber'),
     search: Joi.string().optional().allow('').description('search').example('john'),
-    clientId: Joi.string().optional().allow('').description('clientId').example('655f93439620afb1a59e473c').when('userType', { is: 2, then: Joi.required()}),
+    clientId: Joi.string().optional().allow('').description('clientId').example('655f93439620afb1a59e473c').when('type', { is: 2, then: Joi.required()}),
 })
