@@ -71,7 +71,7 @@ exports.handler = async (req, res) => {
 			let deviceId = new ObjectId()
 
 			const clientData = {
-				clientId: cleintId.toString,
+				clientId: cleintId.toString(),
 				_id: cleintId,
 				name: req.body.name ? req.body.name : '',
 				surname: req.body.surname ? req.body.surname : '',
@@ -142,12 +142,12 @@ exports.handler = async (req, res) => {
 			const newUser = await makeMongoDbServiceUser.createDocument(clientData);
 			const newDevice = await makeMongoDbServiceDevice.createDocument(deviceData);
 			const { password, __v, ...newUserData} = newUser._doc
-			return sendResponse(res, null, 200, messages.successResponse({clientId: newUserData._doc._id, deviceId: newDevice._doc._id}))
+			return sendResponse(res, null, 200, messages.successResponse({clientId: newUserData._id, deviceId: newDevice._id}))
 
 		} else if(req.body.userType === 2) {
 			const userId = new ObjectId()
 			const userData = {
-				clientId: req.body.cleintId,
+				clientId: req.body.clientId,
 				_id: userId,
 				name: req.body.name ? req.body.name : '',
 				surname: req.body.surname ? req.body.surname : '',
@@ -185,9 +185,9 @@ exports.handler = async (req, res) => {
 			}
 
 			const newUser = await makeMongoDbServiceUser.createDocument(userData);
-			await makeMongoDbServiceDevice.updateDocument(new ObjectId(re.body.deviceId), {
+			await makeMongoDbServiceDevice.updateDocument(new ObjectId(req.body.deviceId), {
 				$push: {
-					users: userId
+					users: userId.toString()
 				}
 			})
 			return sendResponse(res, null, 200, messages.successResponse({userId: newUser._doc._id}))
@@ -232,9 +232,9 @@ exports.handler = async (req, res) => {
 			}
 
 			const newUser = await makeMongoDbServiceUser.createDocument(userData);
-			await makeMongoDbServiceDevice.updateDocument(new ObjectId(re.body.deviceId), {
+			await makeMongoDbServiceDevice.updateDocument(new ObjectId(req.body.deviceId), {
 				$push: {
-					users: userId
+					users: userId.toString()
 				}
 			})
 			return sendResponse(res, null, 200, messages.successResponse({userId: newUser._doc._id}))
@@ -271,11 +271,10 @@ exports.rule = Joi.object({
 	idNumber: Joi.string().optional().allow('').description('Document Id Number').example('TAX123456'),
 	taxAddress: Joi.string().optional().allow('').description('Address').example('India'),
 	notes: Joi.string().optional().allow('').description('Notes').example('Notes'),
-	notes: Joi.string().optional().allow('').description('Notes').example('Notes'),
 	timezone: Joi.string().optional().allow('').description('timezone').example('America/New_York'),
 	scheduleTime: Joi.string().optional().allow('').description('Notes').example('8:00'),
 	deviceStatus: Joi.number().optional().default(2).description('Device Status').example(1),
-	fault: Joi.string().optional().allow('').description('fault').example('Sensor issue'),
+	fault: Joi.string().optional().allow('').default('').description('fault').example('Sensor issue'),
 	technician: Joi.string().optional().allow('').description('technician').example('655f93439620afb1a59e473c'),
 	supervisor: Joi.string().optional().allow('').description('supervisor').example('655f93439620afb1a59e473c'),
 	secondSupervisor: Joi.string().optional().allow('').description('secondSupervisor').example('655f93439620afb1a59e473c'),
