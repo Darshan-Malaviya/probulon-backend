@@ -11,9 +11,8 @@ function createCronJob(schedule, timeZone) {
 }
 
 module.exports = function (app) {
-// Endpoint to schedule new scenarios
 app.post('/schedule/scenarios', (req, res) => {
-  const { schedule, timeZone } = req.body; // Assuming request body contains schedule, callback, and timeZone
+  const { schedule, timeZone } = req.body;
   const newJob = createCronJob(schedule, timeZone);
   newJob.start();
 
