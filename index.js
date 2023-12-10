@@ -5,6 +5,7 @@ require('./config/config')(app)
 require('./config/dbConfig')()
 require('./config/consumer')()
 require('./config/mqtt')(app)
+require('./config/cronConfig')(app)
 require('./src/routes')(app)
 
 app.listen(3000,() => {

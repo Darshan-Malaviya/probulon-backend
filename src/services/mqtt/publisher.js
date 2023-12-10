@@ -22,14 +22,14 @@ module.exports.preparePublisher = (topic, message) => {
       if (err) {
         await makeMongoDbServiceQueue.createDocument({
             queueName: topic,
-            fields: JSON.parse(message),
+            fields: JSON.parse(JSON.stringify(message)),
             data: { err: err.message } 
         })
         console.error("Failed to publish message:", err);
       } else {
         await makeMongoDbServiceQueue.createDocument({
             queueName: topic,
-            fields: JSON.parse(message),
+            fields: JSON.parse(JSON.stringify(message)),
             data: {}
         })
         console.log("Message published to", topic);
