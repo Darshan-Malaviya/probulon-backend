@@ -1,7 +1,8 @@
 const mongoose = require("mongoose");
 
 const deviceStatusSchema = mongoose.Schema({
-    bettery: Number,
+    deviceId: String,
+    battery: Number,
     isTempered: Boolean
 }, { timestamps: true })
 exports.deviceStatus = mongoose.model('deviceStatus', deviceStatusSchema);

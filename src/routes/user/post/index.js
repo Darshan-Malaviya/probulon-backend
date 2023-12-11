@@ -51,12 +51,12 @@ exports.handler = async (req, res) => {
 		}
 
 		let data = {
-			name: req.body.name ? req.body.name : '',
-			surname: req.body.surname ? req.body.surname : '',
-			lastSurname: req.body.lastSurname ? req.body.lastSurname : '',
-			mobile: req.body.mobile ? req.body.mobile : '',
-			secondaryMobile: req.body.secondaryMobile ? req.body.secondaryMobile : '',
-			secondaryMobile: req.body.secondaryMobile ? req.body.secondaryMobile : '',
+			name: req.body.name ?? '',
+			surname: req.body.surname ?? '',
+			lastSurname: req.body.lastSurname ?? '',
+			mobile: req.body.mobile ?? '',
+			secondaryMobile: req.body.secondaryMobile ?? '',
+			secondaryMobile: req.body.secondaryMobile ?? '',
 			email: email,
 			deviceId: deviceId,
 			password: bcrypt.hashSync(userData.password, parseInt(process.env.SALT_ROUND)),

@@ -37,7 +37,7 @@ const deviceSchema = mongoose.Schema({
     email: {
         type: String
     },
-    secondaryMobile: {
+    secondaryEmail: {
         type: String
     },
     thirdEmail: {
@@ -67,7 +67,11 @@ const deviceSchema = mongoose.Schema({
 	},
     timestamp: {
         type: Date
-    }
+    },
+    isLocked: Boolean,
+    updateLockStatusBy: String, // Manual, Scenario
+    battery: Number,
+    isTempered: Boolean
 
 }, { timestamps: true });
 
