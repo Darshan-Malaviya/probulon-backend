@@ -50,94 +50,25 @@ exports.handler = async (req, res) => {
 };
 
 exports.rule = Joi.object({
-  name: Joi.string()
-    .required()
-    .example("John")
-    .description("First Name of User"),
-  status: Joi.number()
-    .required()
-    .valid(1, 2, 3)
-    .example(1)
-    .description("status: 1 - On, 2 - Off, 3 - Disabled"),
-  userId: Joi.string()
-    .optional()
-    .allow("")
-    .example("123456789465613")
-    .description("userId"),
-  fault: Joi.string()
-    .optional()
-    .allow("")
-    .example("Error")
-    .description("fault of device"),
-  technician: Joi.string()
-    .optional()
-    .allow("")
-    .example("123456789465613")
-    .description("technicianId"),
-  supervisor: Joi.string()
-    .optional()
-    .allow("")
-    .example("123456789465613")
-    .description("supervisorId"),
-  secondSupervisor: Joi.string()
-    .optional()
-    .allow("")
-    .example("123456789465613")
-    .description("secondSupervisorId"),
-  contactPerson: Joi.string()
-    .optional()
-    .allow("")
-    .example("123456789465613")
-    .description("contactPerson"),
-  mobile: Joi.string()
-    .required()
-    .example("9876543210")
-    .description("Mobile of User"),
-  secondaryMobile: Joi.string()
-    .optional()
-    .allow("")
-    .example("9876543210")
-    .description("Second Mobile of User"),
-  email: Joi.string()
-    .required()
-    .example("john@example.com")
-    .description("Email of User"),
-  secondaryEmail: Joi.string()
-    .optional()
-    .allow("")
-    .example("john@example.com")
-    .description("Email of User"),
-  thirdEmail: Joi.string()
-    .optional()
-    .allow("")
-    .example("john@example.com")
-    .description("third email of User"),
-  address: Joi.string()
-    .optional()
-    .allow("")
-    .example("address")
-    .description("address of Installation"),
-  localTime: Joi.string()
-    .optional()
-    .allow("")
-    .example("localTime")
-    .description("localTime"),
+  name: Joi.string().required().example("John").description("First Name of User"),
+  status: Joi.number().required().valid(1, 2, 3).example(1).description("status: 1 - On, 2 - Off, 3 - Disabled"),
+  userId: Joi.string().optional().allow("").example("123456789465613").description("userId"),
+  fault: Joi.string().optional().allow("").example("Error").description("fault of device"),
+  technician: Joi.string().optional().allow("").example("123456789465613").description("technicianId"),
+  supervisor: Joi.string().optional().allow("").example("123456789465613").description("supervisorId"),
+  secondSupervisor: Joi.string().optional().allow("").example("123456789465613").description("secondSupervisorId"),
+  contactPerson: Joi.string().optional().allow("").example("123456789465613").description("contactPerson"),
+  mobile: Joi.string().required().example("9876543210").description("Mobile of User"),
+  secondaryMobile: Joi.string().optional().allow("").example("9876543210").description("Second Mobile of User"),
+  email: Joi.string().required().example("john@example.com").description("Email of User"),
+  secondaryEmail: Joi.string().optional().allow("").example("john@example.com").description("Email of User"),
+  thirdEmail: Joi.string().optional().allow("").example("john@example.com").description("third email of User"),
+  address: Joi.string().optional().allow("").example("address").description("address of Installation"),
+  localTime: Joi.string().optional().allow("").example("localTime").description("localTime"),
   // password: Joi.string().required().example('John').description('password of User'),
   postalCode: Joi.number().optional().description("Postal Code").example(1),
-  country: Joi.string()
-    .optional()
-    .allow("")
-    .description("country")
-    .example("USA"),
+  country: Joi.string().optional().allow("").description("country").example("USA"),
   town: Joi.string().optional().allow("").description("town").example("town"),
-  province: Joi.string()
-    .optional()
-    .allow("")
-    .description("province")
-    .example("province"),
-  notes: Joi.string()
-    .optional()
-    .allow("")
-    .description("Notes")
-    .example("Notes"),
+  province: Joi.string().optional().allow("").description("province").example("province"),
+  notes: Joi.string().optional().allow("").description("Notes").example("Notes"),
 });
