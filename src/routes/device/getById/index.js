@@ -9,7 +9,13 @@ const makeMongoDbServiceDevice = require("../../../services/db/dbService")({
 
 exports.handler = async (req, res) => {
     try {
-        return sendResponse(res, null, 200, messages.successResponse());
+      let getDevice = await makeMongoDbServiceUser.getSingleDocumentByQuery(
+        { _id: new ObjectId(req.query.deviceId)}
+      )
+
+      if(!getDevice) return sendResponse(res, null, 404,messages.recordNotFound())
+
+        return sendResponse(res, null, 200, messages.successResponse(getDevice));
       } catch (error) {
         return sendResponse(res, null, 500, messages.failureResponse());
       }

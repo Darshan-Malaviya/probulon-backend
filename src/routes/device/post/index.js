@@ -20,7 +20,7 @@ exports.handler = async (req, res) => {
     data._id = deviceId
     data.timestamp = moment().format("Y-MM-DD HH:mm:ss.SSS Z");
     data.localTime = moment(data.localTime).format("Y-MM-DD HH:mm:ss.SSS");
-    data.status = status[data.status - 1];
+    data.statusText = status[data.status - 1];
     let getUser = null;
     if (req.body.userId) {
       getUser = await makeMongoDbServiceUser.getSingleDocumentByQuery({
@@ -30,7 +30,7 @@ exports.handler = async (req, res) => {
 
       await makeMongoDbServiceUser.updateDocument(new ObjectId(req.body.userId), {
         $push: {
-          devices: deviceId
+          devices: deviceId.toString()
         }
       })
     } 
@@ -49,9 +49,9 @@ exports.rule = Joi.object({
   status: Joi.number().required().valid(1, 2, 3).example(1).description("status: 1 - On, 2 - Off, 3 - Disabled"),
   userId: Joi.string().optional().allow("").example("123456789465613").description("userId"),
   fault: Joi.string().optional().allow("").example("Error").description("fault of device"),
-  technician: Joi.string().optional().allow("").example("123456789465613").description("technicianId"),
-  supervisor: Joi.string().optional().allow("").example("123456789465613").description("supervisorId"),
-  secondSupervisor: Joi.string().optional().allow("").example("123456789465613").description("secondSupervisorId"),
+  technician: Joi.string().required().example("123456789465613").description("technicianId"),
+  supervisor: Joi.string().required().example("123456789465613").description("supervisorId"),
+  secondSupervisor: Joi.string().required().example("123456789465613").description("secondSupervisorId"),
   contactPerson: Joi.string().optional().allow("").example("123456789465613").description("contactPerson"),
   mobile: Joi.string().required().example("9876543210").description("Mobile of User"),
   secondaryMobile: Joi.string().optional().allow("").example("9876543210").description("Second Mobile of User"),

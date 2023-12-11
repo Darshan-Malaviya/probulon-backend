@@ -8,7 +8,7 @@ const makeMongoDbServiceUser = require("../../../services/db/dbService")({
 
 exports.handler = async (req, res) => {
     let getUser = await makeMongoDbServiceUser.getSingleDocumentByQuery(
-        { _id: new ObjectId(req.query.userId)}
+        { _id: new ObjectId(req.query.userId), status: 1}
       )
 
     if(!getUser) return sendResponse(res, null, 404,messages.recordNotFound())
