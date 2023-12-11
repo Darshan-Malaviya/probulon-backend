@@ -6,10 +6,9 @@ const userSchema = mongoose.Schema({
 		type: String,
 		default: ""
 	},
-	collaborator: Number,
-	collaboratorText: String,
-	position: Number,
-	positionText: String,
+	collaborator: String,
+	// position: Number,
+	// positionText: String,
 	name: {
 		type: String,
 		required: true,
@@ -30,8 +29,7 @@ const userSchema = mongoose.Schema({
 	},
 	email: {
 		type: String,
-		required: true,
-		unique: true
+		required: true
 	},
 	secondaryEmail: {
 		type: String,
@@ -82,12 +80,12 @@ const userSchema = mongoose.Schema({
 	userType: { //1 - client, 2 - user, 3 - admin
 		type: Number,
 		min: 1,
-		max: 1
+		max: 8
 	},
 	userTypeText: { //1 - client, 2 - user, 3 - admin
 		type: String
 	},
-	postalCode: Number,
+	postalCode: String,
 	country: {
 		type: String
 	},
@@ -104,6 +102,12 @@ const userSchema = mongoose.Schema({
 		type: String
 	},
 	notes: {
+		type: String
+	},
+	scheduleTime: {
+		type: String
+	},
+	timezone: {
 		type: String
 	}
 }, { timestamps: true });
