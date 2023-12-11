@@ -37,12 +37,7 @@ exports.handler = async (req, res) => {
 
     const deviceData = await makeMongoDbServiceDevice.createDocument(data);
 
-    return sendResponse(
-      res,
-      null,
-      200,
-      messages.successResponse(deviceData._doc._id)
-    );
+    return sendResponse(res,null,200,messages.successResponse(deviceData._doc._id));
   } catch (error) {
     console.log(error);
     return sendResponse(res, null, 500, messages.failureResponse(error));
