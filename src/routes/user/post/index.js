@@ -49,23 +49,6 @@ exports.handler = async (req, res) => {
 			3: "CIF (Corporate Tax ID)"
 		}
 
-		// let data = {
-		// 	name: req.body.name ? req.body.name : '',
-		// 	surname: req.body.surname ? req.body.surname : '',
-		// 	lastSurname: req.body.lastSurname ? req.body.lastSurname : '',
-		// 	mobile: req.body.mobile ? req.body.mobile : '',
-		// 	secondaryMobile: req.body.secondaryMobile ? req.body.secondaryMobile : '',
-		// 	secondaryEmail: req.body.secondaryEmail ? req.body.secondaryEmail : '',
-		// 	email: email,
-		// 	deviceId: deviceId,
-		// 	password: bcrypt.hashSync(req.body.password, parseInt(process.env.SALT_ROUND)),
-		// 	gender: genderArr[req.body.gender],
-		// 	genderType: req.body.gender,
-		// 	userType: req.body.userType ? req.body.userType : '',
-		// 	userTypeText: userTypeArr[req.body.userType]
-
-			
-		// }
 		if(req.body.userType === 1) {
 			let cleintId = new ObjectId()
 			let deviceId = new ObjectId()
