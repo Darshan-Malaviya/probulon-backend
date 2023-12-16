@@ -68,10 +68,22 @@ const deviceSchema = mongoose.Schema({
 	notes: {
 		type: String
 	},
-    isLocked: Boolean,
-    updateLockStatusBy: String, // Manual, Scenario
-    battery: Number,
-    isTempered: Boolean
+    isLocked: {
+        type: Boolean,
+        default: false
+    },
+    updateLockStatusBy: {
+        type: String, // Manual, Scenario
+        default: ''
+    },
+    battery: {
+        type: Number,
+        default: 0
+    },
+    isTempered: {
+        type: Boolean,
+        default: false
+    }
 
 }, { timestamps: true });
 

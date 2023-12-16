@@ -51,7 +51,7 @@ exports.handler = async (req, res) => {
       totalCount: deviceCount,
       prevPage: parseInt(pageNumber) === 1 ? false : true,
       nextPage:
-        parseInt(userCount) / parseInt(pageSize) <= parseInt(pageNumber)
+        parseInt(deviceCount) / parseInt(pageSize) <= parseInt(pageNumber)
           ? false
           : true,
       totalPages: Math.ceil(parseInt(deviceCount) / parseInt(pageSize)),
