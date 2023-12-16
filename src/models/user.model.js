@@ -109,6 +109,10 @@ const userSchema = mongoose.Schema({
 	},
 	timezone: {
 		type: String
+	},
+	mpin: {
+		type: String,
+		default: ""
 	}
 }, { timestamps: true });
 
