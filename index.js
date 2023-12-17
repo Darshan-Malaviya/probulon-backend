@@ -6,8 +6,8 @@ app.use(morgan(':remote-addr - :remote-user [:date[clf]] ":method :url HTTP/:htt
 require("dotenv").config();
 require('./config/config')(app)
 require('./config/dbConfig')()
-require('./config/consumer')()
-require('./config/mqtt')(app)
+// require('./config/consumer')()
+// require('./config/mqtt')(app)
 require('./config/cronConfig')(app)
 require('./src/routes')(app)
 

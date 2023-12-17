@@ -74,7 +74,7 @@ const deviceSchema = mongoose.Schema({
     },
     updateLockStatusBy: {
         type: String, // Manual, Scenario
-        default: ''
+        default: 'Manual'
     },
     battery: {
         type: Number,

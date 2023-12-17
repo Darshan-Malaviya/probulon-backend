@@ -7,7 +7,8 @@ const makeMongoDbServiceUser = require("../services/db/dbService")({
 
 
 exports.authenticateToken = (req, res, next) => {
-  const token = req.headers.authorization;
+  const bearerToken = req.headers.authorization;
+  const token = bearerToken.toString().split(" ")[1];
   if(token){
     jwt.verify(token, process.env.API_SECRET, async (err, decodedToken) => {
       if(!err){

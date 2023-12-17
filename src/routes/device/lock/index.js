@@ -11,10 +11,13 @@ const makeMongoDbServiceDevice = require("../../../services/db/dbService")({
 	model: Device
 });
 
-exports.getLockStatus = (req, res) => {
+exports.getLockStatus = async (req, res) => {
 	const userId = req.user.id;
 	const deviceId = req.body.deviceId;
-	const deviceData = makeMongoDbServiceDevice.getSingleDocumentByQuery({ deviceId: deviceId, users: { $in: [userId] } });
+	const deviceData = await makeMongoDbServiceDevice.getSingleDocumentByQuery(
+		{ deviceId: deviceId, users: { $in: [userId] } },
+		{ _id: 0, deviceId: 1, isLocked: 1, updateLockStatusBy: 1 }
+	);
 
 	return sendResponse(
 		res,
@@ -24,14 +27,14 @@ exports.getLockStatus = (req, res) => {
 	);
 }
 
-exports.updateLockStatusBy = (req, res) => {
+exports.updateLockStatusBy = async (req, res) => {
 	const userId = req.user.id;
 	const deviceId = req.body.deviceId;
 	const updateLockStatusBy = req.body.updateLockStatusBy;
-	const deviceData = makeMongoDbServiceDevice.findOneAndUpdateDocument(
+	const deviceData = await makeMongoDbServiceDevice.findOneAndUpdateDocument(
 		{ deviceId: deviceId, users: { $in: [userId] } },
-		{ updateLockStatusBy: updateLockStatusBy },
-		{ new: true }
+		{ updateLockStatusBy },
+		{ new: true, fields: { _id: 0, deviceId: 1, isLocked: 1, updateLockStatusBy: 1 } }
 	);
 
 	return sendResponse(
@@ -42,13 +45,14 @@ exports.updateLockStatusBy = (req, res) => {
 	);
 }
 
-exports.updateLockStatus = (req, res) => {
+exports.updateLockStatus = async (req, res) => {
 	const userId = req.user.id;
 	const deviceId = req.body.deviceId;
-	const deviceData = makeMongoDbServiceDevice.findOneAndUpdateDocument(
-		{ deviceId: deviceId, users: { $in: [userId], updateLockStatusBy: "Manual" } },
-		{ $bit: { isLocked: { xor: 1 } } },
-		{ new: true }
+	const isLocked = req.body.isLocked;
+	const deviceData = await makeMongoDbServiceDevice.findOneAndUpdateDocument(
+		{ deviceId: deviceId, users: { $in: [userId] }, updateLockStatusBy: "Manual" },
+		{ isLocked },
+		{ new: true, fields: { _id: 0, deviceId: 1, isLocked: 1, updateLockStatusBy: 1 } }
 	);
 
 	return sendResponse(
@@ -62,6 +66,11 @@ exports.updateLockStatus = (req, res) => {
 exports.updateLockStatusByValidationRule = Joi.object({
 	deviceId: Joi.string().required().description("deviceId"),
 	updateLockStatusBy: Joi.string().valid("Manual", "Automatic").required().description("updateLockStatusBy"),
+})
+
+exports.updateLockStatusValidationRule = Joi.object({
+	deviceId: Joi.string().required().description("deviceId"),
+	isLocked: Joi.boolean().required().description("isLocked"),
 })
 
 exports.rule = Joi.object({
