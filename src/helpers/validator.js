@@ -16,6 +16,7 @@ module.exports = (location, schema) => {
     }, {});
 
     return res.status(400).json({
+      isSuccess: false,
       status: 'BAD_REQUEST',
       message: 'The request cannot be fulfilled due to bad syntax',
       data: errors,

@@ -37,6 +37,7 @@ exports.authenticateToken = (req, res, next) => {
               .set({ "Content-Type": "application/json" })
               .status(401)
               .send({
+                isSuccess: false,
                 status: "UNAUTHORIZED",
                 message: "You are not authorized to access the request",
                 data: {},
@@ -47,6 +48,7 @@ exports.authenticateToken = (req, res, next) => {
             .set({ "Content-Type": "application/json" })
             .status(401)
             .send({
+              isSuccess: false,
               status: "UNAUTHORIZED",
               message: "You are not authorized to access the request",
               data: {},
@@ -56,6 +58,7 @@ exports.authenticateToken = (req, res, next) => {
     );
   } else {
     return res.set({ "Content-Type": "application/json" }).status(401).send({
+      isSuccess: false,
       status: "UNAUTHORIZED",
       message: "You are not authorized to access the request",
       data: {},
