@@ -27,7 +27,7 @@ exports.handler = async (req, res) => {
       let token = jwt.sign({
         id: user.id
       }, process.env.API_SECRET, {
-        expiresIn: 86400 * 90
+        expiresIn: '90d'
       });
 
       //responding to client request with user profile success message and  access token .
