@@ -12,7 +12,7 @@ exports.handler = async (req, res) => {
         { email: req.body.email}
       )
 
-    if(!user) return sendResponse(res, null, 404,messages.recordNotFound())
+    if(!user) return sendResponse(res, null, 200, messages.recordNotFound())
 
       //comparing passwords
       let passwordIsValid = bcrypt.compareSync(
@@ -21,7 +21,7 @@ exports.handler = async (req, res) => {
       );
       // checking if password was valid and send response accordingly
       if (!passwordIsValid) {
-        return sendResponse(res, null, 401,messages.loginFailed("Invalid Password!"))
+        return sendResponse(res, null, 200,messages.loginFailed("Invalid Password!"))
       }
       //signing token with user id
       let token = jwt.sign({
