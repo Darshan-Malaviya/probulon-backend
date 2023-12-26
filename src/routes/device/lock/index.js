@@ -50,11 +50,12 @@ exports.updateLockStatus = async (req, res) => {
 	const deviceId = req.body.deviceId;
 	const isLocked = req.body.isLocked;
 	const deviceData = await makeMongoDbServiceDevice.findOneAndUpdateDocument(
-		{ deviceId: deviceId, users: { $in: [userId] }, updateLockStatusBy: "Manual" },
-		{ isLocked },
+		{ deviceId: deviceId, users: { $in: [userId] } },
+		{ isLocked, updateLockStatusBy: "Manual" },
 		{ new: true, fields: { _id: 0, deviceId: 1, isLocked: 1, updateLockStatusBy: 1 } }
 	);
-
+	
+	console.log(userId, deviceId)
 	return sendResponse(
 		res,
 		null,
