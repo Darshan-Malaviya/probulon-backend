@@ -9,7 +9,7 @@ const makeMongoDbServiceDevice = require("../../../services/db/dbService")({
 
 exports.handler = async (req, res) => {
     try {
-      let getDevice = await makeMongoDbServiceUser.getSingleDocumentByQuery(
+      let getDevice = await makeMongoDbServiceDevice.getSingleDocumentByQuery(
         { _id: new ObjectId(req.query.deviceId)}
       )
 
@@ -17,6 +17,7 @@ exports.handler = async (req, res) => {
 
         return sendResponse(res, null, 200, messages.successResponse(getDevice));
       } catch (error) {
+        console.log(error)
         return sendResponse(res, null, 500, messages.failureResponse());
       }
 };
