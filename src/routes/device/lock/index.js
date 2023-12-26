@@ -55,7 +55,6 @@ exports.updateLockStatus = async (req, res) => {
 		{ new: true, fields: { _id: 0, deviceId: 1, isLocked: 1, updateLockStatusBy: 1 } }
 	);
 	
-	console.log(userId, deviceId)
 	return sendResponse(
 		res,
 		null,
