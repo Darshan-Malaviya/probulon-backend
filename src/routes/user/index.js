@@ -11,7 +11,7 @@ const validator = require('../../helpers/validator');
 const { authenticateToken } = require("../../middleware/auth.middleware");
 
 router.post("/create", validator('body',post.rule), post.handler)
-router.get("/getById", validator('query',getById.rule), getById.handler)
+router.get("/getById", authenticateToken, getById.handler)
 router.get("/getAll", validator('query',getAll.rule), getAll.handler)
 router.delete("/delete", validator('query',deleteUser.rule), deleteUser.handler)
 router.patch("/update", validator('body',update.rule), update.handler)

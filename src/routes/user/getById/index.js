@@ -7,13 +7,15 @@ const makeMongoDbServiceUser = require("../../../services/db/dbService")({
 });
 
 exports.handler = async (req, res) => {
+    if(req.user && req.user._id) {
     let getUser = await makeMongoDbServiceUser.getSingleDocumentByQuery(
-        { _id: new ObjectId(req.query.userId), status: 1}
+        { _id: new ObjectId(req.user._id), status: 1}
       )
 
     if(!getUser) return sendResponse(res, null, 404,messages.recordNotFound())
     const { password , __v, ...userData} = getUser._doc
     return sendResponse(res, null, 200,messages.successResponse(userData))
+    } else return sendResponse(res, null, 404,messages.recordNotFound())
 }
 
 exports.rule = Joi.object({
